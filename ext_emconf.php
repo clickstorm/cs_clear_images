@@ -11,11 +11,12 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = array(
-	'title' => 'Clear Processed Images',
-	'description' => '',
+	'title' => '[clickstorm] Clear Processed Images',
+	'description' => 'The extension adds a link to the clear cache menu (flush caches) for editors and admins, to delete the processed images and clear the frontend cache afterwards.',
 	'category' => 'plugin',
-	'author' => 'Angela Dudtkowski',
+	'author' => 'Angela Dudtkowski - clickstorm GmbH',
 	'author_email' => 'dudtkowski@clickstorm.de',
+    'author_company' => 'clickstorm GmbH',
 	'state' => 'stable',
 	'internal' => '',
 	'uploadfolder' => '0',
