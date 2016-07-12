@@ -1,0 +1,32 @@
+{
+  "name": "clickstorm/cs_clear_images",
+  "type": "typo3-cms-extension",
+  "description": "[clickstorm] Clear Processed Images",
+  "homepage": "http://www.clickstorm.de",
+  "license": [
+	"GPL-2.0+"
+  ],
+  "keywords": [
+	"typo3",
+	"cms",
+	"clickstorm",
+  ],
+  "version": "1.1.1",
+  "dist": {
+	"url": "https://github.com/clickstorm/cs_clear_images.git",
+	"type": "git"
+  },
+  "replace": {
+	"cs_clear_images": "*"
+  },
+  "require": {
+	"typo3/cms": "6.2.0-6.2.99"
+  },
+  "suggest": {
+  },
+  "autoload": {
+	"psr-4": {
+	  "Clickstorm\\CsClearImages\\": "Classes/"
+	}
+  }
+}
