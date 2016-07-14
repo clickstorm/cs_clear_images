@@ -20,7 +20,7 @@
 	"cs_clear_images": "*"
   },
   "require": {
-	"typo3/cms": "6.2.0-6.2.99"
+	"typo3/cms": "6.2"
   },
   "suggest": {
   },
