@@ -27,12 +27,11 @@ namespace Clickstorm\CsClearImages\Hook;
  ***************************************************************/
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Backend\Utility\IconUtility;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
-class ClearImages implements \TYPO3\CMS\Backend\Toolbar\ClearCacheActionsHookInterface
-{
+class ClearImages implements \TYPO3\CMS\Backend\Toolbar\ClearCacheActionsHookInterface {
     /**
      * Add an entry to the CacheMenuItems array
      *
@@ -41,15 +40,23 @@ class ClearImages implements \TYPO3\CMS\Backend\Toolbar\ClearCacheActionsHookInt
      */
     public function manipulateCacheActions(&$cacheActions, &$optionValues) {
         $title = LocalizationUtility::translate('cache_action.title', 'cs_clear_images');
-        $icon = '<img ' . IconUtility::skinImg($GLOBALS['BACK_PATH'],
-                ExtensionManagementUtility::extRelPath('cs_clear_images') . 'Resources/Public/Images/clear_cache_icon.png',
-                'width="16" height="16"') . ' alt="" title="' . $title . '"/>';
+
+        $identifier = 'clear_processed_images_icon';
+        $iconRegistry = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
+        $iconRegistry->registerIcon($identifier, \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class, ['source' => 'EXT:cs_clear_images/Resources/Public/Images/clear_cache_icon.png']);
+
+        $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
+        $icon = $iconFactory->getIcon($identifier, \TYPO3\CMS\Core\Imaging\Icon::SIZE_SMALL);
 
         // Clearing of processed images
         $cacheActions[] = array(
             'id'    => 'tx_csclearimages',
             'title' => $title,
-            'href'  => $this->backPath . 'tce_db.php?vC=' . $GLOBALS['BE_USER']->veriCode() . '&cacheCmd=tx_csclearimages&ajaxCall=1' . \TYPO3\CMS\Backend\Utility\BackendUtility::getUrlToken('tceAction'),
+            'href'  => BackendUtility::getModuleUrl('tce_db', [
+                'vC' => $GLOBALS['BE_USER']->veriCode(),
+                'cacheCmd' => 'tx_csclearimages',
+                'ajaxCall' => 1
+            ]),
             'icon'  => $icon
         );
     }
